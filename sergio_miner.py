@@ -66,11 +66,13 @@ def drop_all():
     image_Rec_clicker(r'iron_ore.png', 'dropping item', threshold=0.8)
     release_drop_item()
 
+from datetime import datetime
 
 def powermine(times):
+    now = datetime.now()
     count = 1
     while count <= times:
-        print(f'Mining: {count}/{times}')
+        print(f'{now} Mining: {count}/{times}')
         click_western()
         click_southern()
         click_eastern()
@@ -79,4 +81,4 @@ def powermine(times):
 
 
 if __name__ == "__main__":
-    powermine(10)
+    powermine(31)
