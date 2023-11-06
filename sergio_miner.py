@@ -60,6 +60,7 @@ def click_eastern():
 
 
 def drop_all():
+    random_breaks(1.04, 2.15)
     invent_crop()
     drop_item()
     image_Rec_clicker(r'iron_ore.png', 'dropping item', threshold=0.8)
@@ -67,12 +68,14 @@ def drop_all():
 
 
 def powermine(times):
-   while times > 0:
-       click_western()
-       click_southern()
-       click_eastern()
-       drop_all()
-       times = times - 1
+    count = 1
+    while count <= times:
+        print(f'Mining: {count}/{times}')
+        click_western()
+        click_southern()
+        click_eastern()
+        drop_all()
+        count += 1
 
 
 if __name__ == "__main__":
