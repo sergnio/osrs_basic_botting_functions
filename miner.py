@@ -125,11 +125,11 @@ def drop_ore():
     actions = "drop ore."
     invent_crop()
     drop_item()
-    image_Rec_clicker(r'copper_ore.png', 'dropping item', threshold=0.8, playarea=False)
-    image_Rec_clicker(r'clay_ore.png', 'dropping item', threshold=0.8, playarea=False)
-    image_Rec_clicker(r'coal_ore.png', 'dropping item', threshold=0.8, playarea=False)
-    image_Rec_clicker(r'iron_ore.png', 'dropping item', threshold=0.8, playarea=False)
-    image_Rec_clicker(r'tin_ore.png', 'dropping item', threshold=0.8, playarea=False)
+    image_Rec_clicker(r'copper_ore.png', 'dropping item', threshold=0.8)
+    image_Rec_clicker(r'clay_ore.png', 'dropping item', threshold=0.8)
+    image_Rec_clicker(r'coal_ore.png', 'dropping item', threshold=0.8)
+    image_Rec_clicker(r'iron_ore.png', 'dropping item', threshold=0.8)
+    image_Rec_clicker(r'tin_ore.png', 'dropping item', threshold=0.8)
     release_drop_item()
     #print("dropping ore done")
     return "drop ore done"

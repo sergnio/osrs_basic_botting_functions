@@ -48,21 +48,29 @@ def click_random(x, y):
 
 
 def click_western():
-    click_random(666, 628)
+    click_random(330, 284)
 
 
 def click_southern():
-    click_random(833, 488)
+    click_random(385, 342)
 
 
 def click_eastern():
-    click_random(584, 428)
+    click_random(433, 286)
+
+
+def drop_all():
+    invent_crop()
+    drop_item()
+    image_Rec_clicker(r'iron_ore.png', 'dropping item', threshold=0.8)
+    release_drop_item()
 
 
 def powermine():
-    click_western()
-    click_southern()
-    click_eastern()
+    # click_western()
+    # click_southern()
+    # click_eastern()
+    drop_all()
 
 
 if __name__ == "__main__":

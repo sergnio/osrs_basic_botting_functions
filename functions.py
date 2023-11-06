@@ -182,7 +182,7 @@ def deposit_all_Bank():
 
 
 def invent_crop():
-    return screen_Image(620, 480, 820, 750, 'inventshot.png')
+    return screen_Image(550, 230, 739, 493, 'inventshot.png')
 
 
 def random_inventory():
@@ -1128,53 +1128,64 @@ def run_enabled():
 def make_enabled(make='make_craft.png'):
     return Image_count(make, threshold=0.95)
 
+
 def image_Rec_clicker(image, event, iheight=5, iwidth=5, threshold=0.7, clicker='left', ispace=20, playarea=True, fast=False):
     global icoord
     global iflag
+
+    print(f"Function called with image: {image}, event: {event}, threshold: {threshold}")
+
     if playarea:
-        screen_Image(0, 0, 600, 750)
+        screen_Image(0, 0, 810, 533)
+        print("Capturing play area screenshot.")
     else:
-        screen_Image(620, 480, 820, 750)
+        screen_Image(550, 230, 739, 493)
+        print("Capturing non-play area screenshot.")
+
     img_rgb = cv2.imread('images/screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread('images/' + image, 0)
+    template = cv2.imread(f'images/{image}', 0)
     w, h = template.shape[::-1]
+
+    print(f"Template size: width={w}, height={h}")
+
     pt = None
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-    threshold = threshold
+
+    print(f"Matching template...")
     loc = np.where(res >= threshold)
     iflag = False
-    event = event
+
+    print(f"Location of matches: {loc}")
+    if len(loc[0]) == 0:
+        print("No matches found.")
+
     for pt in zip(*loc[::-1]):
         cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
-        if pt is None:
-            iflag = False
+        print(f"Match found at: {pt}")
+
+        if playarea == False:
+            cropx = 620
+            cropy = 480
         else:
-            if playarea == False:
-                cropx = 620
-                cropy = 480
-            else:
-                cropx = 0
-                cropy = 0
+            cropx = 0
+            cropy = 0
 
-            iflag = True
-            x = random.randrange(iwidth, iwidth + ispace) + cropx
-            y = random.randrange(iheight, iheight + ispace) + cropy
-            icoord = pt[0] + iheight + x
-            icoord = (icoord, pt[1] + iwidth + y)
-            if fast == True:
-                b = random.uniform(0.05, 0.1)
-            else:
-                b = random.uniform(0.1, 0.3)
-            pyautogui.moveTo(icoord, duration=b)
-            if fast == True:
-                b = random.uniform(0.01, 0.05)
-            else:
-                b = random.uniform(0.05, 0.15)
+        x = random.randrange(iwidth, iwidth + ispace) + cropx
+        y = random.randrange(iheight, iheight + ispace) + cropy
+        icoord = pt[0] + iheight + x
+        icoord = (icoord, pt[1] + iwidth + y)
 
-            pyautogui.click(icoord, duration=b, button=clicker)
+        print(f"Clicking at coordinates: {icoord}")
+
+        b = random.uniform(0.05, 0.1) if fast else random.uniform(0.1, 0.3)
+        pyautogui.moveTo(icoord, duration=b)
+
+        b = random.uniform(0.01, 0.05) if fast else random.uniform(0.05, 0.15)
+        pyautogui.click(icoord, duration=b, button=clicker)
+        iflag = True
+
     return iflag
-
 def image_Rec_inventory(image, threshold=0.8, clicker='left', iheight=5, iwidth=5, ispace=10):
     global icoord
     global iflag
@@ -1266,7 +1277,6 @@ def invent_count(object, threshold=0.8):
         counter += 1
     return counter
 def drop_item():
-    pyautogui.keyUp('shift')
     c = random.uniform(0.1, 0.2)
     d = random.uniform(0.1, 0.23)
 
@@ -1281,7 +1291,6 @@ def release_drop_item():
 
     time.sleep(e)
     pyautogui.keyUp('shift')
-    pyautogui.press('shift')
     time.sleep(f)
 
 
