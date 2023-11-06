@@ -81,4 +81,4 @@ def powermine(times):
 
 
 if __name__ == "__main__":
-    powermine(31)
+    powermine(39)
