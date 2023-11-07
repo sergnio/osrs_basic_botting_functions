@@ -8,8 +8,13 @@ import random
 from utils.common_functions import screen_Image
 
 
-def check_absorption():
-    return click_on_match('rapid_heal_icon.png')
+def check_absorption_active():
+    loc = screen_grab('absorption_pot_icon.png')
+    print(f'loc: {loc}')
+    # if these exist, it means there's a match
+    xCoords = loc[0][0]
+    print(f'xCoords: {xCoords}')
+    return len(xCoords) > 0
 
 
 def screen_grab(image, threshold=0.7):
@@ -36,6 +41,9 @@ def click_on_match(image, threshold=0.7):
         offset_y = random.randint(-10, 10)
         # Apply the random offsets to the center coordinates
         click_x, click_y = center_x + offset_x, center_y + offset_y
+        drag = random.uniform(.1, .3)
+
+        pyautogui.moveTo(click_x,click_y,duration=drag)
         pyautogui.click(click_x, click_y)
         print(f"Clicked at a random position near the center: {click_x}, {click_y}")
 
@@ -45,6 +53,8 @@ def click_on_match(image, threshold=0.7):
 
         # Perform the second click at the same random position
         pyautogui.click(click_x, click_y)
+
+        pyautogui.moveTo(1200,600,duration=drag)
         print(f"Clicked again after a {delay} second delay at the same position: {click_x}, {click_y}")
         return True
     else:
@@ -58,11 +68,15 @@ def toggle_prayer():
 
     # contiuously toggle rapid prayer, every 45-58 seconds randomly
     while has_more_absorption:
-        has_more_absorption = check_absorption()
-        delay = random.uniform(11, 58)
+        click_on_match('rapid_heal_icon.png')
+        # delay = random.uniform(14.1, 58.67)
+        nextFlickFloorDelay = 7.2
+        nextFlickCeilingDelay = 47.8
+        delay = random.uniform(nextFlickFloorDelay, nextFlickCeilingDelay)
         # print out delay
         print(f"Delaying {delay} seconds before toggling prayer.")
         time.sleep(delay)
+        has_more_absorption = check_absorption_active()
 
 
 if __name__ == "__main__":
