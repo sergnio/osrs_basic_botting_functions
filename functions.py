@@ -918,10 +918,10 @@ def mini_map_bool(image, threshold=0.7):
     return False
 
 def xp_quick():
-    left = 560
-    top = 95
-    right = 595
-    bottom = 220
+    left = 469
+    top = 50
+    right = 525
+    bottom = 170
 
     im = ImageGrab.grab(bbox=(left, top, right, bottom))
     im.save('images/xp_gain.png', 'png')
@@ -1149,7 +1149,6 @@ def image_Rec_clicker(image, event, iheight=5, iwidth=5, threshold=0.7, clicker=
 
     print(f"Template size: width={w}, height={h}")
 
-    pt = None
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
 
     print(f"Matching template...")
