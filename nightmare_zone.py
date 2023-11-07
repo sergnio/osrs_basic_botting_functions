@@ -7,6 +7,24 @@ import random
 
 from utils.common_functions import screen_Image
 
+import builtins
+import time
+
+# Save the original print function
+original_print = builtins.print
+
+
+# Define a new print function that includes a timestamp
+def timestamped_print(*args, **kwargs):
+    # Get the current time
+    current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    # Call the original print function with the timestamp
+    original_print(f"{current_time} -", *args, **kwargs)
+
+
+# Override the built-in print with the new function
+builtins.print = timestamped_print
+
 
 def check_absorption_active():
     loc = screen_grab('absorption_pot_icon.png')
@@ -43,7 +61,7 @@ def click_on_match(image, threshold=0.7):
         click_x, click_y = center_x + offset_x, center_y + offset_y
         drag = random.uniform(.1, .3)
 
-        pyautogui.moveTo(click_x,click_y,duration=drag)
+        pyautogui.moveTo(click_x, click_y, duration=drag)
         pyautogui.click(click_x, click_y)
         print(f"Clicked at a random position near the center: {click_x}, {click_y}")
 
@@ -54,7 +72,7 @@ def click_on_match(image, threshold=0.7):
         # Perform the second click at the same random position
         pyautogui.click(click_x, click_y)
 
-        pyautogui.moveTo(1200,600,duration=drag)
+        pyautogui.moveTo(1200, 600, duration=drag)
         print(f"Clicked again after a {delay} second delay at the same position: {click_x}, {click_y}")
         return True
     else:
@@ -72,6 +90,8 @@ def toggle_prayer():
         # delay = random.uniform(14.1, 58.67)
         nextFlickFloorDelay = 7.2
         nextFlickCeilingDelay = 47.8
+        # nextFlickFloorDelay = 2.2
+        # nextFlickCeilingDelay = 5.8
         delay = random.uniform(nextFlickFloorDelay, nextFlickCeilingDelay)
         # print out delay
         print(f"Delaying {delay} seconds before toggling prayer.")
