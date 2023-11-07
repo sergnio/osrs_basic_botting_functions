@@ -79,6 +79,7 @@ def firemake():
             time.sleep(d)
             wood_burned += 1
             fire_made = is_fire_made()
+            print(f'is fire made: {fire_made}')
             print('wood burned')
 
         print('done doing that')
@@ -99,11 +100,10 @@ def is_fire_made():
     print('checking if fire made')
     fire = False
     while not fire:
-        print('checking fire')
         fire = xp_gain_check('firemaking_xp.png', 0.85)
         if fire:
             print('breaking')
-            break
+            return True
 
 if __name__ == "__main__":
     firemake()
