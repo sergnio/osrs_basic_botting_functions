@@ -1,5 +1,8 @@
+import math
 import random
 import time
+
+import numpy as np
 import pyautogui
 import win32gui
 import core
@@ -222,7 +225,15 @@ def high_alch_loop(vol, bool):
             time.sleep(x)
         time.sleep(c)
         t += 1
+def random_plus_minus_100(base_number):
+    # Generate a random number between -10 and 10, then add it to the base number
+    random_offset = np.random.uniform(-100, 100)
+    number_with_offset = base_number + random_offset
+    rounded_val = math.ceil(number_with_offset)
+    return rounded_val
 
 if __name__ == "__main__":
-    high_alch_loop(351, False)
+    # loops = random_plus_minus_100(1200)
+    loops = 2126
+    high_alch_loop(loops, False)
     # superheat_items(100, 1) #100 items iron

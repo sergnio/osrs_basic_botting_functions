@@ -41,7 +41,7 @@ def click_random(x, y):
     b = random.uniform(0.33, 0.46)
     x = random.randrange(x, x + 11) + 5
     y = random.randrange(y, y + 16) + 5
-    d = random.uniform(1.59, 2.63)
+    d = random.uniform(1.89, 2.97)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click()
@@ -81,4 +81,4 @@ def powermine(times):
 
 
 if __name__ == "__main__":
-    powermine(39)
+    powermine(3073)

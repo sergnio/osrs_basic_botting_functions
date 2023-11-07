@@ -125,11 +125,11 @@ def drop_ore():
     actions = "drop ore."
     invent_crop()
     drop_item()
-    image_Rec_clicker(r'copper_ore.png', 'dropping item', threshold=0.8)
-    image_Rec_clicker(r'clay_ore.png', 'dropping item', threshold=0.8)
-    image_Rec_clicker(r'coal_ore.png', 'dropping item', threshold=0.8)
+    # image_Rec_clicker(r'copper_ore.png', 'dropping item', threshold=0.8)
+    # image_Rec_clicker(r'clay_ore.png', 'dropping item', threshold=0.8)
+    # image_Rec_clicker(r'coal_ore.png', 'dropping item', threshold=0.8)
     image_Rec_clicker(r'iron_ore.png', 'dropping item', threshold=0.8)
-    image_Rec_clicker(r'tin_ore.png', 'dropping item', threshold=0.8)
+    # image_Rec_clicker(r'tin_ore.png', 'dropping item', threshold=0.8)
     release_drop_item()
     #print("dropping ore done")
     return "drop ore done"
@@ -308,7 +308,6 @@ if __name__ == "__main__":
     Run_Duration_hours = 1.14
 
                 # | ore | marker color | take break | how long to run for in hours
-    # powerminer_text(iron, red, Run_Duration_hours=Run_Duration_hours)
+    powerminer_text(iron, red, Run_Duration_hours=Run_Duration_hours)
 
-    sergio_powermine()
     #os.system('shutdown -s -f')
