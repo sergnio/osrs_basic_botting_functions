@@ -72,7 +72,7 @@ def click_on_match(image, threshold=0.7):
         # Perform the second click at the same random position
         pyautogui.click(click_x, click_y)
 
-        pyautogui.moveTo(1200, 600, duration=drag)
+        pyautogui.moveTo(1100, 122, duration=drag)
         print(f"Clicked again after a {delay} second delay at the same position: {click_x}, {click_y}")
         return True
     else:
@@ -86,7 +86,7 @@ def toggle_prayer():
 
     # contiuously toggle rapid prayer, every 45-58 seconds randomly
     while has_more_absorption:
-        click_on_match('rapid_heal_icon.png')
+        click_on_match('quick_toggle_prayer.png')
         # delay = random.uniform(14.1, 58.67)
         nextFlickFloorDelay = 7.2
         nextFlickCeilingDelay = 47.8
