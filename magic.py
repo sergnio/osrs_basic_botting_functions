@@ -229,7 +229,7 @@ def high_alch_loop(vol, bool):
 
 
 if __name__ == "__main__":
-    loops = random_plus_minus_100(3000)
+    loops = random_plus_minus_100(3100)
     # loops = 2126
     high_alch_loop(loops, False)
     # superheat_items(100, 1) #100 items iron

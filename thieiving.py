@@ -34,8 +34,8 @@ def drop_first_item():
 
 
 def fruit_stalls():
-    x_coord = 340  # Replace with your desired x-coordinate
-    y_coord = 200  # Replace with your desired y-coordinate
+    x_coord = 450  # Replace with your desired x-coordinate
+    y_coord = 230  # Replace with your desired y-coordinate
     delay = random.uniform(0.81, 1.52)
     # delay = .96
     click_on_coordinates(x_coord, y_coord)
