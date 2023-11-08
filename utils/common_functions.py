@@ -18,6 +18,8 @@ image_ranges = {
     'canifis-fifth-jump': (200, 3000, 1250, 1250),
     'canifis-sixth-jump': (255, 255, 1840, 1100),
     'canifis-final-jump': (0, 0, 768, 1100),
+    # nightmare zone
+    'absorption-pot': (0,0,76,74)
 }
 
 def screen_Image(screenSize, name='screenshot.png'):

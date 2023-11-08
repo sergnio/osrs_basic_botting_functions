@@ -125,11 +125,11 @@ def drop_ore():
     actions = "drop ore."
     invent_crop()
     drop_item()
-    image_Rec_clicker(r'copper_ore.png', 'dropping item', threshold=0.8, playarea=False)
-    image_Rec_clicker(r'clay_ore.png', 'dropping item', threshold=0.8, playarea=False)
-    image_Rec_clicker(r'coal_ore.png', 'dropping item', threshold=0.8, playarea=False)
-    image_Rec_clicker(r'iron_ore.png', 'dropping item', threshold=0.8, playarea=False)
-    image_Rec_clicker(r'tin_ore.png', 'dropping item', threshold=0.8, playarea=False)
+    # image_Rec_clicker(r'copper_ore.png', 'dropping item', threshold=0.8)
+    # image_Rec_clicker(r'clay_ore.png', 'dropping item', threshold=0.8)
+    # image_Rec_clicker(r'coal_ore.png', 'dropping item', threshold=0.8)
+    image_Rec_clicker(r'iron_ore.png', 'dropping item', threshold=0.8)
+    # image_Rec_clicker(r'tin_ore.png', 'dropping item', threshold=0.8)
     release_drop_item()
     #print("dropping ore done")
     return "drop ore done"
@@ -230,6 +230,7 @@ def powerminer_text(ore, num, Take_Human_Break=False, Run_Duration_hours=5):
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
     while time.time() < t_end:
         invent = invent_enabled()
+        print('\ninvent step')
         if invent == 0:
             actions = 'opening inventory'
             pyautogui.press('esc')
@@ -243,15 +244,18 @@ def powerminer_text(ore, num, Take_Human_Break=False, Run_Duration_hours=5):
         #inventory = int(inv_count(powerlist[ore])) + int(count_gems()) + int(count_gems2()) + int(count_geo())
         inventory = gem_count + ore_count + clue_count
         #print_progress(time_left, spot, mined_text, powerlist, ore, actions)
+        print('\npre invent check')
         if inventory > 27:
             actions = 'dropping ore starting...'
             #print_progress(time_left, spot, mined_text, powerlist, ore, actions)
             actions = drop_ore()
             #print_progress(time_left, spot, mined_text, powerlist, ore, actions)
             random_breaks(0.2, 0.7)
+        print('\ndoing textshot idk')
         mined_text = Image_to_Text('thresh', 'textshot.png')
         #print_progress(time_left, spot, mined_text, powerlist, ore, actions)
         if mined_text.strip().lower() != 'mining' and mined_text.strip().lower() != 'mininq':
+            print('\nmining or something')
             mined_text = 'Not Mining'
             #print_progress(time_left, spot, mined_text, powerlist, ore, actions)
             #random_breaks(0.05, 0.1)
@@ -260,6 +264,7 @@ def powerminer_text(ore, num, Take_Human_Break=False, Run_Duration_hours=5):
                 c = random.triangular(0.05, 1, 0.5)
                 time.sleep(c)
         else:
+            print('\nMINING')
             mined_text = 'Mining'
         #print_progress(time_left, spot, mined_text, powerlist, ore, actions)
 
@@ -303,6 +308,6 @@ if __name__ == "__main__":
     Run_Duration_hours = 1.14
 
                 # | ore | marker color | take break | how long to run for in hours
-    powerminer_text(iron, red, Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
+    powerminer_text(iron, red, Run_Duration_hours=Run_Duration_hours)
 
     #os.system('shutdown -s -f')
