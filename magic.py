@@ -223,7 +223,7 @@ def high_alch_loop(vol, bool):
             pyautogui.press('1')
             expensive_delay = random.uniform(0.5, 0.6)
             time.sleep(expensive_delay)
-        time.sleep(delay+10)
+        time.sleep(delay)
         t += 1
 def random_plus_minus_100(base_number):
     # Generate a random number between -10 and 10, then add it to the base number
