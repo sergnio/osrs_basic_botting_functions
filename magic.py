@@ -209,21 +209,21 @@ def high_alch_loop(vol, bool):
         # takeRandomBreak()
         print(f'{now}: Alch {t}/{vol}')
         high_alch_command()
-        # time.sleep(c)
+        # time.sleep(delay)
         high_alch_command()  # alchs same spot as alch spell location
-   #high_alch() alchs 3rd inventory spot
-        c = random.uniform(1.4, 1.9)
+        #high_alch() alchs 3rd inventory spot
+        delay = random.uniform(1.4, 1.9)
         if exp:
             print('expensive')
-            delay = random.uniform(0.8, 1.2)
-            time.sleep(delay)
-            delay = random.uniform(0.8, 1.2)
+            expensive_delay = random.uniform(0.8, 1.2)
+            time.sleep(expensive_delay)
+            expensive_delay = random.uniform(0.8, 1.2)
             pyautogui.press('space')
-            time.sleep(delay)
+            time.sleep(expensive_delay)
             pyautogui.press('1')
-            delay = random.uniform(0.5, 0.6)
-            time.sleep(delay)
-        time.sleep(c)
+            expensive_delay = random.uniform(0.5, 0.6)
+            time.sleep(expensive_delay)
+        time.sleep(delay+10)
         t += 1
 def random_plus_minus_100(base_number):
     # Generate a random number between -10 and 10, then add it to the base number
