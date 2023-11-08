@@ -215,14 +215,14 @@ def high_alch_loop(vol, bool):
         c = random.uniform(1.4, 1.9)
         if exp:
             print('expensive')
-            x = random.uniform(0.8, 1.2)
-            time.sleep(x)
-            x = random.uniform(0.8, 1.2)
+            delay = random.uniform(0.8, 1.2)
+            time.sleep(delay)
+            delay = random.uniform(0.8, 1.2)
             pyautogui.press('space')
-            time.sleep(x)
+            time.sleep(delay)
             pyautogui.press('1')
-            x = random.uniform(0.5, 0.6)
-            time.sleep(x)
+            delay = random.uniform(0.5, 0.6)
+            time.sleep(delay)
         time.sleep(c)
         t += 1
 def random_plus_minus_100(base_number):
@@ -233,7 +233,7 @@ def random_plus_minus_100(base_number):
     return rounded_val
 
 if __name__ == "__main__":
-    # loops = random_plus_minus_100(1200)
-    loops = 2126
+    loops = random_plus_minus_100(3000)
+    # loops = 2126
     high_alch_loop(loops, False)
     # superheat_items(100, 1) #100 items iron
