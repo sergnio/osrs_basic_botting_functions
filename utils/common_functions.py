@@ -9,6 +9,7 @@ image_ranges = {
     #       left, up, right, bottom
     'default': (0, 0, 0, 0),
     'left-half': (0, 0, 1282, 1370),
+    'left-top-quarter': (0, 0, 1282, 1370),
     # this assumes the screen is on the 2nd half of the window
     'canifis-start-jump': (558, 0, 1000, 1200),
     'canifis-first-jump': (800, 400, 1250, 900),

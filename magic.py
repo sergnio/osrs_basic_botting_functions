@@ -20,6 +20,7 @@ from functions import Image_Rec_single
 from functions import deposit_secondItem
 
 import functions
+from nightmare_zone import click_on_match
 
 global hwnd
 global iflag
@@ -190,13 +191,17 @@ randYStart = 328
 randYStop = randYStart + 9 # 10
 def high_alch_command():
     # 3rd item
-    b = random.uniform(0.33, 0.46)
+    delay = random.uniform(0.33, 0.46)
     x = random.randrange(randXStart, randXStop) + 5
     y = random.randrange(randYStart, randYStop) + 5
     d = random.uniform(0.11, 0.18)
-    pyautogui.moveTo(x, y, duration=b)
+    pyautogui.moveTo(x, y, duration=delay)
     time.sleep(d)
     pyautogui.click()
+
+def precise_high_alch():
+    click_on_match('high_alch_icon.png', screensize='left-top-quarter')
+    click_on_match('dragon_jav_tips.png', screensize='left-top-quarter')
 
 from datetime import datetime
 
@@ -235,5 +240,5 @@ def random_plus_minus_100(base_number):
 if __name__ == "__main__":
     # loops = random_plus_minus_100(1200)
     loops = 2126
-    high_alch_loop(loops, False)
-    # superheat_items(100, 1) #100 items iron
+    # high_alch_loop(loops, False)
+    precise_high_alch()

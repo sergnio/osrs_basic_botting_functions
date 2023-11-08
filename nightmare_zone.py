@@ -35,8 +35,8 @@ def check_absorption_active():
     return len(xCoords) > 0
 
 
-def screen_grab(image, threshold=0.7):
-    screen_Image('default', 'screenshot.png')
+def screen_grab(image, threshold=0.7, screensize='default'):
+    screen_Image(screensize, 'screenshot.png')
     img_rgb = cv2.imread('images/screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(f'images/{image}', 0)
@@ -46,8 +46,8 @@ def screen_grab(image, threshold=0.7):
     return loc, w, h
 
 
-def click_on_match(image, threshold=0.7):
-    loc, w, h = screen_grab(image, threshold)
+def click_on_match(image, threshold=0.7, click_twice=False, screensize='default'):
+    loc, w, h = screen_grab(image, threshold, screensize=screensize)
     points = list(zip(*loc[::-1]))
     if len(points) >= 2:  # Check if there are at least two matches
         # Access the second match directly
@@ -69,11 +69,13 @@ def click_on_match(image, threshold=0.7):
         delay = random.uniform(0.31, 0.64)
         time.sleep(delay)
 
-        # Perform the second click at the same random position
-        pyautogui.click(click_x, click_y)
+        # specific to NMZ script
+        if click_twice:
+            # Perform the second click at the same random position
+            pyautogui.click(click_x, click_y)
+            pyautogui.moveTo(1100, 122, duration=drag)
+            print(f"Clicked again after a {delay} second delay at the same position: {click_x}, {click_y}")
 
-        pyautogui.moveTo(1100, 122, duration=drag)
-        print(f"Clicked again after a {delay} second delay at the same position: {click_x}, {click_y}")
         return True
     else:
         print("No matches found to click on.")
@@ -86,7 +88,7 @@ def toggle_prayer():
 
     # contiuously toggle rapid prayer, every 45-58 seconds randomly
     while has_more_absorption:
-        click_on_match('quick_toggle_prayer.png')
+        click_on_match('quick_toggle_prayer.png', click_twice=True)
         # delay = random.uniform(14.1, 58.67)
         nextFlickFloorDelay = 7.2
         nextFlickCeilingDelay = 47.8
