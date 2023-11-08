@@ -14,7 +14,7 @@ from functions import xp_gain_check
 
 iheight = 5
 iwidth = 5
-ispace = 20
+ispace = 14
 
 
 def firemake():
@@ -48,8 +48,7 @@ def firemake():
 
         x = random.randrange(iwidth, iwidth + ispace)
         y = random.randrange(iheight, iheight + ispace)
-        icoord = pt[0] + iheight + x
-        icoord = (icoord, pt[1] + iwidth + y)
+        icoord = (pt[0] + iheight + x, pt[1] + iwidth + y)
 
         print(f"Clicking at coordinates: {icoord}")
 
@@ -74,17 +73,47 @@ def firemake():
     print('done doing that')
     bank()
     grab_more_logs()
+    run_to_firemake_spot()
+
+def run_to_firemake_spot():
+    click_minimap_towards_spot()
 
 
-def screen_grab(image, threshold=0.7, left=0, top=0, right=810, bottom=533):
+def click_minimap_towards_spot():
+    image = 'firemake_start.png'
+    h, img_rgb, loc, w = screen_grab(image, full_color=True)
+    # click on the first match
+    x = random.randrange(iwidth, iwidth + ispace)
+    y = random.randrange(iheight, iheight + ispace)
+    icoord = (loc[1] + iheight + x, loc[0] + iwidth + y)
+    print(f"Clicking at coordinates: {icoord}")
+    drag = random.uniform(0.16, 0.27)
+    pyautogui.moveTo(icoord, duration=drag)
+    pyautogui.click(icoord, duration=drag, button='left')
+
+    time.sleep(7)
+
+
+def screen_grab(image, threshold=0.7, left=0, top=0, right=810, bottom=533, full_color=False):
     screen_Image(left, top, right, bottom)
 
     img_rgb = cv2.imread('images/screenshot.png')
-    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(f'images/{image}', 0)
-    w, h = template.shape[::-1]
+
+    # Depending on full_color, decide whether to use grayscale or color images for matching.
+    if full_color:
+        img_to_match = img_rgb
+        template = cv2.imread(f'images/{image}')
+    else:
+        img_to_match = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+        template = cv2.imread(f'images/{image}', 0)
+
+    w, h = template.shape[:2][::-1]
     print(f"Template size: width={w}, height={h}")
-    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+
+    # Choose the correct method for template matching based on whether it's full color or not.
+    method = cv2.TM_CCOEFF_NORMED
+    res = cv2.matchTemplate(img_to_match, template, method)
+
     print(f"Matching template...")
     loc = np.where(res >= threshold)
     return h, img_rgb, loc, w
@@ -143,4 +172,4 @@ def is_fire_made():
 
 if __name__ == "__main__":
     firemake()
-    # grab_more_logs()
+    # run_to_firemake_spot()
