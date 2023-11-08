@@ -10,6 +10,8 @@ from utils.common_functions import screen_Image
 import builtins
 import time
 
+from utils.timestamped_print import enable_timestamped_print
+
 # Save the original print function
 original_print = builtins.print
 

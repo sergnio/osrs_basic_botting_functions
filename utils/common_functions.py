@@ -1,3 +1,5 @@
+import math
+
 import cv2
 import numpy as np
 import pyautogui
@@ -87,3 +89,10 @@ def find_object_precise_new(color_name, screenSize='default'):
         pyautogui.click(duration=b)
         return (x, y)
     return False
+
+def random_plus_minus_100(base_number):
+    # Generate a random number between -10 and 10, then add it to the base number
+    random_offset = np.random.uniform(-100, 100)
+    number_with_offset = base_number + random_offset
+    rounded_val = math.ceil(number_with_offset)
+    return rounded_val

@@ -20,6 +20,7 @@ from functions import Image_Rec_single
 from functions import deposit_secondItem
 
 import functions
+from utils.common_functions import random_plus_minus_100
 
 global hwnd
 global iflag
@@ -225,12 +226,7 @@ def high_alch_loop(vol, bool):
             time.sleep(expensive_delay)
         time.sleep(delay)
         t += 1
-def random_plus_minus_100(base_number):
-    # Generate a random number between -10 and 10, then add it to the base number
-    random_offset = np.random.uniform(-100, 100)
-    number_with_offset = base_number + random_offset
-    rounded_val = math.ceil(number_with_offset)
-    return rounded_val
+
 
 if __name__ == "__main__":
     loops = random_plus_minus_100(3000)
