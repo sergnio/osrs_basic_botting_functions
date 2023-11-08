@@ -22,7 +22,8 @@ def firemake():
     clicker = 'left'
     playarea = True
     fast = False
-    image = 'willow_icon.png'
+    # image = 'willow_icon.png'
+    image = 'maple_log_icon.png'
     event = 'lighting log'
     # find tinderbox
     global icoord
@@ -38,9 +39,10 @@ def firemake():
     if len(loc[0]) == 0:
         print("No matches found.")
 
-    for pt in zip(*loc[::-1]):
-        click_tinderbox()
-
+    click_tinderbox()
+    # Assuming loc is a tuple of arrays and all arrays have the same length
+    loc_list = list(zip(*loc[::-1]))
+    for index, pt in enumerate(loc_list):
         cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
         print(f"Match found at: {pt}")
 
@@ -51,12 +53,13 @@ def firemake():
 
         print(f"Clicking at coordinates: {icoord}")
 
-        b = random.uniform(0.36, 0.47)
-        pyautogui.moveTo(icoord, duration=b)
-
-        b = random.uniform(0.23, 0.53)
-        pyautogui.click(icoord, duration=b, button=clicker)
+        drag = random.uniform(0.16, 0.27)
+        pyautogui.moveTo(icoord, duration=drag)
+        pyautogui.click(icoord, duration=drag, button=clicker)
         fire_made = False
+        # only click tinderbox if not last match
+        if index != len(loc_list) - 1:
+            click_tinderbox()
 
         while not fire_made:
             d = random.uniform(0.59, 0.97)
@@ -65,6 +68,8 @@ def firemake():
             fire_made = is_fire_made()
             print(f'is fire made: {fire_made}')
             print('wood burned')
+
+
 
     print('done doing that')
     bank()
@@ -86,7 +91,8 @@ def screen_grab(image, threshold=0.7, left=0, top=0, right=810, bottom=533):
 
 
 def grab_more_logs():
-    image = 'willow_log_bank.png'
+    # image = 'willow_log_bank.png'
+    image = 'maple_log_bank.png'
     h, img_rgb, loc, w = screen_grab(image, right=482, bottom=323)
 
     print('loc')
@@ -136,5 +142,5 @@ def is_fire_made():
 
 
 if __name__ == "__main__":
-    # firemake()
-    grab_more_logs()
+    firemake()
+    # grab_more_logs()
