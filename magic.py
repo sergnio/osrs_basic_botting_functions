@@ -20,7 +20,7 @@ from functions import Image_Rec_single
 from functions import deposit_secondItem
 
 import functions
-from utils.common_functions import random_plus_minus_100
+from utils.common_functions import random_plus_minus_100, is_at_login_screen
 
 global hwnd
 global iflag
@@ -206,6 +206,10 @@ def high_alch_loop(vol, bool):
     t = 1
     exp = bool
     while t <= vol:
+        if is_at_login_screen():
+            # exit
+            print('exiting, at login screen')
+            exit()
         now = datetime.now()
         # takeRandomBreak()
         print(f'{now}: Alch {t}/{vol}')
@@ -229,7 +233,7 @@ def high_alch_loop(vol, bool):
 
 
 if __name__ == "__main__":
-    loops = random_plus_minus_100(3100)
+    loops = random_plus_minus_100(3900)
     # loops = 2126
     high_alch_loop(loops, False)
     # superheat_items(100, 1) #100 items iron

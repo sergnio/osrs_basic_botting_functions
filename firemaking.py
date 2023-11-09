@@ -93,7 +93,7 @@ def click_minimap_towards_spot():
 
     time.sleep(7)
 
-
+# TODO - pull out of here
 def screen_grab(image, threshold=0.7, left=0, top=0, right=810, bottom=533, full_color=False):
     screen_Image(left, top, right, bottom)
 
@@ -116,7 +116,10 @@ def screen_grab(image, threshold=0.7, left=0, top=0, right=810, bottom=533, full
 
     print(f"Matching template...")
     loc = np.where(res >= threshold)
-    return h, img_rgb, loc, w
+
+    is_match = len(loc[0]) > 0
+
+    return h, img_rgb, loc, w, is_match
 
 
 def grab_more_logs():

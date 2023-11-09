@@ -7,6 +7,8 @@ from PIL import Image, ImageGrab
 from shapely import Polygon
 import random
 
+from firemaking import screen_grab
+
 image_ranges = {
     #       left, up, right, bottom
     'default': (0, 0, 0, 0),
@@ -96,3 +98,7 @@ def random_plus_minus_100(base_number):
     number_with_offset = base_number + random_offset
     rounded_val = math.ceil(number_with_offset)
     return rounded_val
+
+def is_at_login_screen():
+    is_match = screen_grab('login_screen.png')
+    return is_match
