@@ -101,4 +101,5 @@ def random_plus_minus_100(base_number):
 
 def is_at_login_screen():
     is_match = screen_grab('login_screen.png')
+    print(f'is_match: {is_match}')
     return is_match

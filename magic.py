@@ -118,6 +118,16 @@ def high_alch_third_spot():
 
     print('alching item')
 
+def confirm_expensive():
+    print('expensive')
+    expensive_delay = random.uniform(0.8, 1.2)
+    time.sleep(expensive_delay)
+    expensive_delay = random.uniform(0.8, 1.2)
+    pyautogui.press('space')
+    time.sleep(expensive_delay)
+    pyautogui.press('1')
+    expensive_delay = random.uniform(0.5, 0.6)
+    time.sleep(expensive_delay)
 
 
 
@@ -131,9 +141,14 @@ def takeRandomBreak():
 
     # Extract the last two characters
     last_two_chars = num_str[-2:]
-    print(f'taking break: {timeInSeconds}')
+
     # Check if the last two characters are between '00' and '15'
-    return '00' <= last_two_chars <= '15'
+    should_take_break = '00' <= last_two_chars <= '02'
+
+    if should_take_break:
+        small_break = random.randint(3, 11)
+        print(f"Taking a {small_break} second break.")
+        time.sleep(small_break)
 
 def pick_iron_items():
     pick_item(1510 - 1280, 123)
@@ -201,17 +216,18 @@ def high_alch_command():
 
 from datetime import datetime
 
+
 def high_alch_loop(vol, bool):
     print(f'alching {vol} times')
     t = 1
     exp = bool
     while t <= vol:
-        if is_at_login_screen():
-            # exit
-            print('exiting, at login screen')
-            exit()
+        # screen = is_at_login_screen()
+        # if screen:
+        #     print('exiting, at login screen')
+        #     exit()
         now = datetime.now()
-        # takeRandomBreak()
+        takeRandomBreak()
         print(f'{now}: Alch {t}/{vol}')
         high_alch_command()
         # time.sleep(delay)
@@ -219,21 +235,12 @@ def high_alch_loop(vol, bool):
         #high_alch() alchs 3rd inventory spot
         delay = random.uniform(1.4, 1.9)
         if exp:
-            print('expensive')
-            expensive_delay = random.uniform(0.8, 1.2)
-            time.sleep(expensive_delay)
-            expensive_delay = random.uniform(0.8, 1.2)
-            pyautogui.press('space')
-            time.sleep(expensive_delay)
-            pyautogui.press('1')
-            expensive_delay = random.uniform(0.5, 0.6)
-            time.sleep(expensive_delay)
+            confirm_expensive()
         time.sleep(delay)
         t += 1
 
-
 if __name__ == "__main__":
-    loops = random_plus_minus_100(3900)
-    # loops = 2126
+    # loops = random_plus_minus_100(1000)
+    loops = 1824
     high_alch_loop(loops, False)
     # superheat_items(100, 1) #100 items iron
