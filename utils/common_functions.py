@@ -102,6 +102,14 @@ def random_plus_minus_100(base_number):
     rounded_val = math.ceil(number_with_offset)
     return rounded_val
 
+
+def click_random(x, y):
+    drag = random.uniform(0.33, 0.46)
+    x = random.randrange(x, x + 11) + 5
+    y = random.randrange(y, y + 16) + 5
+    pyautogui.moveTo(x, y, duration=drag)
+    pyautogui.click()
+
 def is_at_login_screen():
     is_match = screen_grab('login_screen.png')
     print(f'is_match: {is_match}')

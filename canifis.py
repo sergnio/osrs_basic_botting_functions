@@ -1,5 +1,5 @@
 from functions import random_breaks
-from utils.common_functions import find_object_precise_new
+from utils.common_functions import find_object_precise_new, click_random
 
 color = 'agility'
 
@@ -19,8 +19,9 @@ def second_jump():
     random_breaks(5.01, 6.5)
 
 
-def northern_house_jump():
-    find_object_precise_new(color, 'canifis-third-jump')
+def northern_L_house_jump():
+    # find_object_precise_new(color, 'canifis-third-jump')
+    click_random(759,941)
     random_breaks(5.8, 7.5)
 
 
@@ -49,7 +50,7 @@ def run_course(num_times):
         start_course()
         first_jump()
         second_jump()
-        northern_house_jump()
+        northern_L_house_jump()
         north_western_jump()
         pole_vault()
         jump_to_last_house()
