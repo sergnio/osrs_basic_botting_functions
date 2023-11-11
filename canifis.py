@@ -50,7 +50,7 @@ def jump_to_last_house():
 
 def exit_course_jump():
     try:
-        get_coords_for_object('canifis-fell-off', 'canifis-fell-off')
+        click_on_match('images/fell-off.png')
         print('Fell off course! Not performing final jump')
     except ValueError:
         print('Exit course jump')
