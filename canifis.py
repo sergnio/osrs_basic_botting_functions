@@ -19,27 +19,27 @@ def second_jump():
     random_breaks(5.01, 6.5)
 
 
-def third_jump():
+def northern_house_jump():
     find_object_precise_new(color, 'canifis-third-jump')
     random_breaks(5.8, 7.5)
 
 
-def fourth_jump():
+def north_western_jump():
     find_object_precise_new(color, 'canifis-fourth-jump')
     random_breaks(5.19, 6.45)
 
 
-def fifth_jump():
+def pole_vault():
     find_object_precise_new(color, 'canifis-fifth-jump')
     random_breaks(7.21, 9.15)
 
 
-def sixth_jump():
+def jump_to_last_house():
     find_object_precise_new(color, 'canifis-sixth-jump')
     random_breaks(7.08, 9.85)
 
 
-def final_jump():
+def exit_course_jump():
     find_object_precise_new(color, 'canifis-sixth-jump')
     random_breaks(3.52, 5.56)
 
@@ -49,11 +49,11 @@ def run_course(num_times):
         start_course()
         first_jump()
         second_jump()
-        third_jump()
-        fourth_jump()
-        fifth_jump()
-        sixth_jump()
-        final_jump()
+        northern_house_jump()
+        north_western_jump()
+        pole_vault()
+        jump_to_last_house()
+        exit_course_jump()
         num_times = num_times - 1
 
 # todo - checking for marks of grace

@@ -16,10 +16,10 @@ image_ranges = {
     # this assumes the screen is on the 2nd half of the window
     'canifis-start-jump': (558, 0, 1000, 1200),
     'canifis-first-jump': (800, 400, 1250, 900),
-    'canifis-second-jump': (200, 200, 1840, 900),
-    'canifis-third-jump': (0, 0, 768, 1200),
+    'canifis-second-jump': (550, 550, 1840, 841),
+    'canifis-third-jump': (100, 500, 768, 1200),
     'canifis-fourth-jump': (0, 0, 950, 1200),
-    'canifis-fifth-jump': (200, 3000, 1250, 1250),
+    'canifis-fifth-jump': (200, 500, 1250, 1250),
     'canifis-sixth-jump': (255, 255, 1840, 1100),
     'canifis-final-jump': (0, 0, 768, 1100),
     # nightmare zone
@@ -74,6 +74,9 @@ def find_object_precise_new(color_name, screenSize='default'):
     if len(contours) != 0:
         # find the biggest countour (c) by the area
         c = max(contours, key=cv2.contourArea)
+
+        print('c is:')
+        print(c)
 
         minx, miny, maxx, maxy = Polygon(np.squeeze(c)).bounds
         print('minx, miny, maxx, maxy')
