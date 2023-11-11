@@ -217,10 +217,9 @@ def high_alch_command():
 from datetime import datetime
 
 
-def high_alch_loop(vol, bool):
+def high_alch_loop(vol, exp):
     print(f'alching {vol} times')
     t = 1
-    exp = bool
     while t <= vol:
         # screen = is_at_login_screen()
         # if screen:
@@ -240,7 +239,7 @@ def high_alch_loop(vol, bool):
         t += 1
 
 if __name__ == "__main__":
-    # loops = random_plus_minus_100(1000)
-    loops = 1824
+    loops = random_plus_minus_100(2500)
+    # loops = 348
     high_alch_loop(loops, False)
     # superheat_items(100, 1) #100 items iron
