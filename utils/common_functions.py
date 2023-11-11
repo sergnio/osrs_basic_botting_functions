@@ -120,8 +120,13 @@ def choose_random_median_point(minx, miny, maxx, maxy, delta_x=0, delta_y=0):
     pixel_boundary_x = int((maxx - minx) * .25)
     pixel_boundary_y = int((maxy - miny) * .25)
 
-    random_x = random.randrange(median_x - pixel_boundary_x, median_x + pixel_boundary_x)
-    random_y = random.randrange(median_y - pixel_boundary_y, median_y + pixel_boundary_y)
+    lower_x = median_x - pixel_boundary_x
+    upper_x = median_x + pixel_boundary_x
+    random_x = random.randrange(lower_x, upper_x)
+
+    lower_y = median_y - pixel_boundary_y
+    upper_y = median_y + pixel_boundary_y
+    random_y = random.randrange(lower_y, upper_y)
 
     final_x = random_x + delta_x
     final_y = random_y + delta_y
