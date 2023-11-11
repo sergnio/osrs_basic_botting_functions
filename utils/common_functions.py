@@ -51,21 +51,29 @@ color_ranges = {
 
 
 def find_object_precise_and_click(color_name, screenSize='default'):
+    x, y = get_coords_for_object(color_name, screenSize)
+
+    drag = random.uniform(0.1, 0.4)
+    pyautogui.moveTo(x, y, duration=drag)
+    drag = random.uniform(0.01, 0.05)
+    # just to make sure the mouse has enough time to get there
+    time.sleep(drag)
+    pyautogui.click(x, y, duration=drag)
+    return x, y
+
+
+def get_coords_for_object(color_name, screenSize):
     # Check if the color_name is one of the predefined colors
     if color_name not in color_ranges:
         raise ValueError(f"{color_name} is not a valid color name")
-
     # If the color_name is valid, get the color ranges
     color = color_ranges[color_name]
-
     screen_Image(screenSize)
     image = cv2.imread(imageDirectory)
     image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
     image = cv2.rectangle(image, pt1=(0, 0), pt2=(150, 100), color=(0, 0, 0), thickness=-1)
     boundaries = [color]
-
     print(f"Searching for {color_name}...")
-
     # loop over the boundaries
     for (lower, upper) in boundaries:
         # create NumPy arrays from the boundaries
@@ -84,32 +92,21 @@ def find_object_precise_and_click(color_name, screenSize='default'):
 
         ret, thresh = cv2.threshold(mask, 40, 255, 0)
         contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-
     if len(contours) == 0:
         raise ValueError(f"No matches found for {color_name}")
-
     # find the biggest countour (c) by the area
     c = max(contours, key=cv2.contourArea)
-
     x_delta_from_screenshot = image_ranges[screenSize][0]
     y_delta_from_screenshot = image_ranges[screenSize][1]
-
     minx, miny, maxx, maxy = Polygon(np.squeeze(c)).bounds
     print('-----------')
-    print(f'Found {color_name} at: minx: {minx+x_delta_from_screenshot}, miny: {miny+y_delta_from_screenshot}, maxx: {maxx+x_delta_from_screenshot}, maxy: {maxy+y_delta_from_screenshot}')
-
-    x,y = choose_random_median_point(minx, miny, maxx, maxy, x_delta_from_screenshot, y_delta_from_screenshot)
-
+    print(
+        f'Found {color_name} at: minx: {minx + x_delta_from_screenshot}, miny: {miny + y_delta_from_screenshot}, maxx: {maxx + x_delta_from_screenshot}, maxy: {maxy + y_delta_from_screenshot}')
+    x, y = choose_random_median_point(minx, miny, maxx, maxy, x_delta_from_screenshot, y_delta_from_screenshot)
     print(f'clicking at: {x}, {y}')
     print('-----------')
-
-    drag = random.uniform(0.1, 0.4)
-    pyautogui.moveTo(x, y, duration=drag)
-    drag = random.uniform(0.01, 0.05)
-    # just to make sure the mouse has enough time to get there
-    time.sleep(drag)
-    pyautogui.click(x, y, duration=drag)
     return x, y
+
 
 def choose_random_median_point(minx, miny, maxx, maxy, delta_x=0, delta_y=0):
     # Calculate median points
