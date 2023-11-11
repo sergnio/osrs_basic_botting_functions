@@ -46,10 +46,11 @@ color_ranges = {
     'attack_blue': ([200, 200, 0], [255, 255, 5]),
     'agility': ([25, 75, 14], [40, 85, 35]),
     'canfis-small-north-house': ([30, 100, 30], [80, 255, 80]),
+    'canifis-fell-off': ([190,77,21], [200,87,31]),
 }
 
 
-def find_object_precise_new(color_name, screenSize='default'):
+def find_object_precise_and_click(color_name, screenSize='default'):
     # Check if the color_name is one of the predefined colors
     if color_name not in color_ranges:
         raise ValueError(f"{color_name} is not a valid color name")
@@ -97,7 +98,6 @@ def find_object_precise_new(color_name, screenSize='default'):
     print('-----------')
     print(f'Found {color_name} at: minx: {minx+x_delta_from_screenshot}, miny: {miny+y_delta_from_screenshot}, maxx: {maxx+x_delta_from_screenshot}, maxy: {maxy+y_delta_from_screenshot}')
 
-
     x,y = choose_random_median_point(minx, miny, maxx, maxy, x_delta_from_screenshot, y_delta_from_screenshot)
 
     print(f'clicking at: {x}, {y}')
@@ -117,8 +117,8 @@ def choose_random_median_point(minx, miny, maxx, maxy, delta_x=0, delta_y=0):
     median_y = int((miny + maxy) / 2)
 
     # Define the pixel boundary for x and y, only deviating 50% of the max pixels
-    pixel_boundary_x = int((maxx - minx) * .25)
-    pixel_boundary_y = int((maxy - miny) * .25)
+    pixel_boundary_x = min(int((maxx - minx) * .25), 1)
+    pixel_boundary_y = min(int((maxy - miny) * .25), 1)
 
     lower_x = median_x - pixel_boundary_x
     upper_x = median_x + pixel_boundary_x
