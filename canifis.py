@@ -1,8 +1,8 @@
 from functions import random_breaks
+from firemaking import screen_grab
 from utils.common_functions import find_object_precise_new, click_random
 
 color = 'agility'
-
 
 def start_course():
     find_object_precise_new(color, 'canifis-first-jump')
@@ -20,8 +20,7 @@ def second_jump():
 
 
 def northern_L_house_jump():
-    # find_object_precise_new(color, 'canifis-third-jump')
-    click_random(759,941)
+    find_object_precise_new(color, 'canifis-third-jump')
     random_breaks(5.8, 7.5)
 
 
@@ -47,22 +46,36 @@ def exit_course_jump():
 
 def run_course(num_times):
     while num_times > 0:
-        start_course()
-        first_jump()
-        second_jump()
-        northern_L_house_jump()
-        north_western_jump()
-        pole_vault()
-        jump_to_last_house()
-        exit_course_jump()
+        # check_before_jumping(start_course())
+        # check_before_jumping(first_jump())
+        # check_before_jumping(second_jump())
+        check_before_jumping(northern_L_house_jump())
+        check_before_jumping(north_western_jump())
+        check_before_jumping(pole_vault())
+        check_before_jumping(jump_to_last_house())
+        check_before_jumping(exit_course_jump())
         num_times = num_times - 1
 
+
 # todo - checking for marks of grace
-    # then picking them up
+# then picking them up
 # todo - checking if I fell
-    # go to restart point
+# go to restart point
 
 # click on the tree
+def check_for_grace():
+    x, x, x, x, is_match = screen_grab('mark_of_grace.png', 0.8)
+    if is_match:
+        print('found mark of grace!!')
+        return True
+
+    return False
+def check_before_jumping(jump_function):
+    has_grace = check_for_grace()  # Assuming this function is defined and works as expected.
+    jump_function(has_grace)
+
+
 if __name__ == "__main__":
     # assume a screensize of 1805x1400
     run_course(1)
+    # check_for_grace()

@@ -9,6 +9,8 @@ import random
 
 from firemaking import screen_grab
 
+imageDirectory = 'images/screenshot.png'
+
 image_ranges = {
     #       left, up, right, bottom
     'default': (0, 0, 0, 0),
@@ -17,14 +19,15 @@ image_ranges = {
     'canifis-start-jump': (558, 0, 1000, 1200),
     'canifis-first-jump': (800, 400, 1250, 900),
     'canifis-second-jump': (550, 550, 1840, 841),
-    'canifis-third-jump': (100, 500, 768, 1200),
+    'canifis-third-jump': (250, 850, 1000, 1200),
     'canifis-fourth-jump': (0, 0, 950, 1200),
     'canifis-fifth-jump': (200, 500, 1250, 1250),
     'canifis-sixth-jump': (255, 255, 1840, 1100),
     'canifis-final-jump': (0, 0, 768, 1100),
     # nightmare zone
-    'absorption-pot': (0,0,76,74)
+    'absorption-pot': (0, 0, 76, 74)
 }
+
 
 def screen_Image(screenSize, name='screenshot.png'):
     if screenSize not in image_ranges:
@@ -41,7 +44,7 @@ color_ranges = {
     'pickup_high': ([250, 0, 167], [255, 5, 172]),
     'attack_blue': ([200, 200, 0], [255, 255, 5]),
     # 'agility':  ([0, 183, 245], [0, 183, 245]),
-    'agility':  ([25, 75, 14], [40, 85, 35]),
+    'agility': ([25, 75, 14], [40, 85, 35]),
 }
 
 
@@ -54,46 +57,50 @@ def find_object_precise_new(color_name, screenSize='default'):
     color = color_ranges[color_name]
 
     screen_Image(screenSize)
-    imageDirectory = 'images/screenshot.png'
     image = cv2.imread(imageDirectory)
     image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
     image = cv2.rectangle(image, pt1=(0, 0), pt2=(150, 100), color=(0, 0, 0), thickness=-1)
     boundaries = [color]
+
+    print(f"Searching for {color_name}...")
 
     # loop over the boundaries
     for (lower, upper) in boundaries:
         # create NumPy arrays from the boundaries
         lower = np.array(lower, dtype="uint8")
         upper = np.array(upper, dtype="uint8")
+        print(f'lower: {lower}')
+        print(f'upper: {upper}')
         # find the colors within the specified boundaries and apply
         # the mask
         mask = cv2.inRange(image, lower, upper)
         output = cv2.bitwise_and(image, image, mask=mask)
         ret, thresh = cv2.threshold(mask, 40, 255, 0)
         contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-    if len(contours) != 0:
-        # find the biggest countour (c) by the area
-        c = max(contours, key=cv2.contourArea)
 
-        print('c is:')
-        print(c)
+    print(f"Found {len(contours)} matches for {color_name}...")
 
-        minx, miny, maxx, maxy = Polygon(np.squeeze(c)).bounds
-        print('minx, miny, maxx, maxy')
-        print(minx, miny, maxx, maxy)
+    if len(contours) == 0:
+        raise ValueError(f"No matches found for {color_name}")
 
-        x_delta_from_screenshot = image_ranges[screenSize][0]
-        y_delta_from_screenshot = image_ranges[screenSize][1]
+    # find the biggest countour (c) by the area
+    c = max(contours, key=cv2.contourArea)
 
-        pixelBoundary = 1
-        x = random.randrange(minx + pixelBoundary, max(minx + 2, maxx - pixelBoundary)) + x_delta_from_screenshot
-        y = random.randrange(miny + pixelBoundary, max(miny + 2, maxy - pixelBoundary)) + y_delta_from_screenshot
-        b = random.uniform(0.1, 0.4)
-        pyautogui.moveTo(x, y, duration=b)
-        b = random.uniform(0.01, 0.05)
-        pyautogui.click(duration=b)
-        return (x, y)
-    return False
+    minx, miny, maxx, maxy = Polygon(np.squeeze(c)).bounds
+
+    x_delta_from_screenshot = image_ranges[screenSize][0]
+    y_delta_from_screenshot = image_ranges[screenSize][1]
+
+    pixelBoundary = 1
+    x = random.randrange(minx + pixelBoundary, max(minx + 2, maxx - pixelBoundary)) + x_delta_from_screenshot
+    y = random.randrange(miny + pixelBoundary, max(miny + 2, maxy - pixelBoundary)) + y_delta_from_screenshot
+    b = random.uniform(0.1, 0.4)
+
+    pyautogui.moveTo(x, y, duration=b)
+    b = random.uniform(0.01, 0.05)
+    pyautogui.click(duration=b)
+    return x, y
+
 
 def random_plus_minus_100(base_number):
     # Generate a random number between -10 and 10, then add it to the base number
@@ -109,6 +116,7 @@ def click_random(x, y):
     y = random.randrange(y, y + 16) + 5
     pyautogui.moveTo(x, y, duration=drag)
     pyautogui.click()
+
 
 def is_at_login_screen():
     is_match = screen_grab('login_screen.png')
