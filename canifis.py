@@ -2,7 +2,7 @@ import pyautogui
 
 from functions import random_breaks
 from firemaking import screen_grab
-from utils.common_functions import find_object_precise_and_click, click_random, click_on_match
+from utils.common_functions import find_object_precise_and_click, click_random, click_on_match, get_coords_for_object
 
 color = 'agility'
 
@@ -49,12 +49,13 @@ def jump_to_last_house():
 
 
 def exit_course_jump():
-    find_object_precise_and_click(color, 'canifis-sixth-jump')
+    try:
+        get_coords_for_object('canifis-fell-off', 'canifis-fell-off')
+        print('Fell off course! Not performing final jump')
+    except ValueError:
+        print('Exit course jump')
+        find_object_precise_and_click(color, 'canifis-sixth-jump')
 
-    real_color = 'canifis-fell-off' if
-
-    print('Exit course jump')
-    find_object_precise_and_click(color, 'canifis-sixth-jump')
     random_breaks(3.52, 5.56)
 
 
@@ -95,7 +96,8 @@ def check_before_jumping(jump_function):
 
 if __name__ == "__main__":
     # assume a screensize of 1805x1400
-    run_course(1)
+    # run_course(1)
+    exit_course_jump()
     # Found amber at: minx: 603.0, miny: 752.0, maxx: 612.0, maxy: 762.0
     # clicking at: 608, 758
     #     pyautogui.moveTo(608, 758, duration=0.1)

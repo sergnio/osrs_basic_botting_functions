@@ -25,19 +25,11 @@ image_ranges = {
     'canifis-fifth-jump': (200, 500, 1250, 1250),
     'canifis-sixth-jump': (255, 255, 1840, 1100),
     'canifis-final-jump': (0, 0, 768, 1100),
+    'canifis-fell-off': (0, 0, 900, 1400),
     # nightmare zone
     'absorption-pot': (0, 0, 76, 74)
 }
 
-
-def screen_Image(screenSize, name='screenshot.png'):
-    if screenSize not in image_ranges:
-        raise ValueError(f"{screenSize} is not within the range")
-    myScreenshot = ImageGrab.grab() if screenSize == 'default' else ImageGrab.grab(bbox=image_ranges[screenSize])
-    myScreenshot.save('images/' + name)
-
-
-# Define your color ranges in a dictionary
 color_ranges = {
     'red': ([0, 0, 180], [80, 80, 255]),
     'green': ([0, 180, 0], [80, 255, 80]),
@@ -46,8 +38,16 @@ color_ranges = {
     'attack_blue': ([200, 200, 0], [255, 255, 5]),
     'agility': ([25, 75, 14], [40, 85, 35]),
     'canfis-small-north-house': ([30, 100, 30], [80, 255, 80]),
-    'canifis-fell-off': ([190,77,21], [200,87,31]),
+    'canifis-fell-off': ([21, 77, 190], [31, 87, 200]),
 }
+
+
+# Define your color ranges in a dictionary
+def screen_Image(screenSize, name='screenshot.png'):
+    if screenSize not in image_ranges:
+        raise ValueError(f"{screenSize} is not within the range")
+    myScreenshot = ImageGrab.grab() if screenSize == 'default' else ImageGrab.grab(bbox=image_ranges[screenSize])
+    myScreenshot.save('images/' + name)
 
 
 def find_object_precise_and_click(color_name, screenSize='default'):
@@ -62,7 +62,7 @@ def find_object_precise_and_click(color_name, screenSize='default'):
     return x, y
 
 
-def get_coords_for_object(color_name, screenSize):
+def get_coords_for_object(color_name, screenSize='default'):
     # Check if the color_name is one of the predefined colors
     if color_name not in color_ranges:
         raise ValueError(f"{color_name} is not a valid color name")
