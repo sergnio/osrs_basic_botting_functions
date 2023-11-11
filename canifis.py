@@ -1,6 +1,6 @@
 from functions import random_breaks
 from firemaking import screen_grab
-from utils.common_functions import find_object_precise_new, click_random
+from utils.common_functions import find_object_precise_new, click_random, click_on_match
 
 color = 'agility'
 
@@ -46,14 +46,14 @@ def exit_course_jump():
 
 def run_course(num_times):
     while num_times > 0:
-        # check_before_jumping(start_course())
-        # check_before_jumping(first_jump())
-        # check_before_jumping(second_jump())
-        check_before_jumping(northern_L_house_jump())
-        check_before_jumping(north_western_jump())
-        check_before_jumping(pole_vault())
-        check_before_jumping(jump_to_last_house())
-        check_before_jumping(exit_course_jump())
+        check_before_jumping(start_course)
+        check_before_jumping(first_jump)
+        check_before_jumping(second_jump)
+        check_before_jumping(northern_L_house_jump)
+        check_before_jumping(north_western_jump)
+        check_before_jumping(pole_vault)
+        check_before_jumping(jump_to_last_house)
+        check_before_jumping(exit_course_jump)
         num_times = num_times - 1
 
 
@@ -71,11 +71,13 @@ def check_for_grace():
 
     return False
 def check_before_jumping(jump_function):
-    has_grace = check_for_grace()  # Assuming this function is defined and works as expected.
-    jump_function(has_grace)
+    if check_for_grace():
+        print('Clicking on mark of grace')
+        click_on_match('mark_of_grace.png')
+
+    jump_function()
 
 
 if __name__ == "__main__":
     # assume a screensize of 1805x1400
     run_course(1)
-    # check_for_grace()
