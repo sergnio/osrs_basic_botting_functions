@@ -146,7 +146,7 @@ def takeRandomBreak():
     should_take_break = '00' <= last_two_chars <= '02'
 
     if should_take_break:
-        small_break = random.randint(3, 11)
+        small_break = random.randint(8, 265)
         print(f"Taking a {small_break} second break.")
         time.sleep(small_break)
 
@@ -239,7 +239,7 @@ def high_alch_loop(vol, exp):
         t += 1
 
 if __name__ == "__main__":
-    loops = random_plus_minus_100(2500)
-    # loops = 348
+    loops = random_plus_minus_100(1500)
+    # loops = 318
     high_alch_loop(loops, False)
     # superheat_items(100, 1) #100 items iron
